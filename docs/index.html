@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>DateCalculation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+    * {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body {
+  padding: 20px 15%;
+}
+
+.header {
+  text-align: center;
+}
+
+form > div {
+  clear: both;
+  overflow: hidden;
+  padding: 1px;
+  margin: 0 0 10px 0;
+}
+form > div > label,
+legend {
+	width: 25%;
+  float: left;
+  padding-right: 10px;
+}
+
+input[type=number],
+input[type=date] {
+	width: 100%;
+  border-top: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+}
+input[type=number],
+input[type=date] {
+  width: 50%;
+}
+input[type=number]:focus,
+input[type=date]:focus {
+  outline: 0;
+  border-color: #4697e4;
+}
+
+@media (max-width: 600px) {
+  form > div {
+    margin: 0 0 15px 0;
+  }
+  form > div > label,
+  legend {
+	  width: 100%;
+    float: none;
+    margin: 0 0 5px 0;
+  }
+  input[type=number],
+  input[type=date]{
+    width: 100%;
+  }
+}
+@media (min-width: 1200px) {
+  form > div > label,
+	legend {
+  	text-align: right;
+  }
+}
+    </style>
+</head>
+<body class="maybe">
+  <div class="header">
+    <h1>Date Calc</h1>
+    <h2>Result: <span id="resultDate"></span></h2>
+  </div>
+  <form autoComplete="off" >
+    <div>
+      <label for="refDate">Reference date</label>
+      <input type="date" name="refDate" id="refDate" />
+    </div>
+    <div>
+      <label for="offset" >Offset days</label>
+      <input type="number" id="offset" name="offset" />
+    </div>
+  </form>
+  <h3>Help</h3>
+  <p>
+    First pick a reference date and then set how many days offset you want. One thing to remember here is that a positive offset will result in a date that occurs before the reference date and a negative offset occurs after the reference date.
+  </p>
+  <script>
+    (function(){
+      var refDateElement = document.getElementById('refDate');
+      var offsetElement = document.getElementById('offset');
+      var resultDateElement = document.getElementById('resultDate');
+
+      function updatedInput(){
+        var refDate = new Date(refDateElement.value);
+        var offset = Number(offsetElement.value);
+        updateResult(formatDate(calcResultDate(refDate, offset)));
+      }
+
+      function updateResult(date) {
+        resultDateElement.textContent = date;
+      }
+
+      function calcResultDate(refDate, offset) {
+        const date = new Date(refDate);
+        return new Date(date.setDate(date.getDate() - offset));
+      }
+
+      function formatDate(date) {
+        return new Date(date).toISOString().slice(0, 10);
+      }
+
+      function setupListeners(){
+        refDateElement.oninput = updatedInput;
+        offsetElement.oninput = updatedInput;
+      }
+
+      function init(){
+        var offset = 90;
+        var date = calcResultDate(new Date(), -offset);
+        refDateElement.value = formatDate(date);
+        offsetElement.value = offset;
+        updateResult(formatDate(calcResultDate(date, offset)));
+        setupListeners();
+      }
+
+      init();
+    })();
+  </script>
+</body>
+</html>

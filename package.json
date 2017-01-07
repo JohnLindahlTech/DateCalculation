@@ -1,0 +1,22 @@
+{
+  "name": "date-calculation",
+  "version": "0.0.1",
+  "description": "",
+  "main": "docs/index.html",
+  "devDependencies": {
+    "serve": "^2.1.2"
+  },
+  "scripts": {
+    "start": "serve docs -p 8080"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JohnPhoto/DateCalculation.git"
+  },
+  "author": "JohnPhoto <john@johnphoto.se>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/JohnPhoto/DateCalculation/issues"
+  },
+  "homepage": "https://github.com/JohnPhoto/DateCalculation#readme"
+}
